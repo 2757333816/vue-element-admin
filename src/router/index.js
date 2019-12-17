@@ -73,12 +73,6 @@ export const constantRoutes = [
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: '查看(门店维度)', icon: 'tree' }
-      },
-      {
-        path: 'appointment',
-        name: 'Appointment',
-        component: () => import('@/views/appointment/index'),
-        meta: { title: 'Appointment', icon: 'appointment' }
       }
     ]
   },
@@ -97,15 +91,7 @@ export const constantRoutes = [
         path: 'menu1',
         component: () => import('@/views/nested/menu1'), // Parent router-view
         name: 'Menu1',
-        meta: { title: '库存列表' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: '库存列表' }
-          },
-        ]
+        meta: { title: '库存列表' }
       }
     ]
   },
