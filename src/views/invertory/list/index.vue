@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :inline="true" class="demo-form-inline" label-width="80px">
+    <el-form :inline="true" class="demo-form-inline" label-width="90px">
       <!-- 门店选择 -->
       <el-form-item label="门店">
         <el-select v-model="form.shop" placeholder="请选择">

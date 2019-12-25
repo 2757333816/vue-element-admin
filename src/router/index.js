@@ -76,64 +76,37 @@ export const constantRoutes = [
       }
     ]
   },
-  // nested
+  // invertory
   {
-    path: '/nested',
+    path: '/invertory',
     component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: '库存管理',
-      icon: 'nested'
-    },
+    redirect: '/invertory',
+    name: 'Invertory',
+    meta: { title: '库存管理', icon: 'table' },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: '库存列表' }
+        path: 'list',
+        component: () => import('@/views/invertory/list'), // Parent router-view
+        name: 'invertoryList',
+        meta: { title: '库存列表', icon: 'table' }
       }
     ]
   },
   // order
   {
-    path: 'order',
+    path: '/order',
+    component: Layout,
     name: 'Order',
-    component: () => import('@/views/order'),
     meta: { title: '订单管理', icon: 'example' },
     children: [
       {
         path: 'list',
-        name: 'List',
+        name: 'orderList',
         component: () => import('@/views/order/list'),
         meta: { title: '订单列表', icon: 'table' }
       }
     ]
   },
-  // form
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
