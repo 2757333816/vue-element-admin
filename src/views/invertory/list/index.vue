@@ -101,7 +101,7 @@ export default {
           'get_category_list': {}
         },
         'statics': {
-          'token': '11b0aeb52bde6af80e0158dced1ce870__3'
+          'token': '8a909291ff89ad43dfe6ee03f66a4b2d__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
@@ -135,7 +135,7 @@ export default {
           }
         },
         'statics': {
-          'token': '11b0aeb52bde6af80e0158dced1ce870__3'
+          'token': '8a909291ff89ad43dfe6ee03f66a4b2d__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
@@ -172,7 +172,7 @@ export default {
           }
         },
         'statics': {
-          'token': '11b0aeb52bde6af80e0158dced1ce870__3'
+          'token': '8a909291ff89ad43dfe6ee03f66a4b2d__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data)).then(response => {
@@ -199,7 +199,7 @@ export default {
           'get_shop_list': {}
         },
         'statics': {
-          'token': '11b0aeb52bde6af80e0158dced1ce870__3'
+          'token': '8a909291ff89ad43dfe6ee03f66a4b2d__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
