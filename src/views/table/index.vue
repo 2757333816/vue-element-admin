@@ -69,7 +69,7 @@
       <el-table-column prop="category_name" label="品类" width="90">
         <!-- 品类 -->
       </el-table-column>
-      <el-table-column prop="model_id" label="型号" width="90">
+      <el-table-column prop="model_name" label="型号" width="90">
         <!-- 型号 -->
       </el-table-column>
       <el-table-column prop="size_name" label="大小/日期" width="90">
@@ -122,7 +122,7 @@ export default {
           'get_store_list': {}
         },
         'statics': {
-          'token': '8a909291ff89ad43dfe6ee03f66a4b2d__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
@@ -154,7 +154,7 @@ export default {
           'get_category_list': {}
         },
         'statics': {
-          'token': '8a909291ff89ad43dfe6ee03f66a4b2d__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
@@ -189,7 +189,7 @@ export default {
           }
         },
         'statics': {
-          'token': '8a909291ff89ad43dfe6ee03f66a4b2d__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
@@ -225,7 +225,7 @@ export default {
           }
         },
         'statics': {
-          'token': '8a909291ff89ad43dfe6ee03f66a4b2d__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data)).then(response => {
@@ -292,7 +292,7 @@ export default {
           }
         },
         'statics': {
-          'token': '8a909291ff89ad43dfe6ee03f66a4b2d__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data)).then(response => {
@@ -307,9 +307,10 @@ export default {
             ...datelist[i].data,
             category_name: this.getNameByCategoryId(datelist[i].category_id),
             model_name: this.getNameByModelId(datelist[i].model_id, datelist[i].category_id),
-            size_name: this.getNameBySizeId(datelist[i].size_id, datelist[i].size_id)
+            size_name: this.getNameBySizeId(datelist[i].size_id, datelist[i].category_id)
           })
         }
+        console.log('tableData', this.tableData)
         // console.log('model_id', datelist[].model_id)
         this.creatTableHeader()
       }).catch(err => {
@@ -330,10 +331,10 @@ export default {
     },
     getNameByModelId: function(model_id, category_id) {
       var name = ''
-      // console.log('modelOptions', this.modelOptions)
+      console.log('modelOptions', this.modelOptions[1])
       for (var i = 0; i < this.modelOptions[category_id].length; i++) {
         var model = this.modelOptions[category_id][i]
-        // console.log('model', model)
+        console.log('model', model_id)
         if (model_id === model.value) {
           name = model.label
         }

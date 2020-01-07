@@ -48,49 +48,49 @@
           /></el-select>
       </el-form-item>
       <!-- 姓名 -->
-      <!-- <el-form-item label="姓名">
-        <el-input v-model="form.name" />
-      </el-form-item> -->
+      <el-form-item label="姓名">
+        <el-input v-model="form.customer_name" />
+      </el-form-item>
       <!-- 电话 -->
-      <!-- <el-form-item label="电话">
-        <el-input v-model="form.phone" />
-      </el-form-item> -->
+      <el-form-item label="电话">
+        <el-input v-model="form.customer_mobile" />
+      </el-form-item>
       <!-- 地址 -->
-      <!-- <el-form-item label="地址">
-        <el-input v-model="form.site" />
-      </el-form-item> -->
+      <el-form-item label="地址">
+        <el-input v-model="form.customer_address" />
+      </el-form-item>
       <!-- 支付账号 -->
-      <!-- <el-form-item label="支付账号">
-        <el-input v-model="form.paymentID" />
-      </el-form-item> -->
+      <el-form-item label="支付账号">
+        <el-input v-model="form.pay_number" />
+      </el-form-item>
       <!-- 支付流水号 -->
-      <!-- <el-form-item label="支付流水号">
+      <el-form-item label="支付流水号">
         <el-input v-model="form.paymentNumber" />
-      </el-form-item> -->
+      </el-form-item>
       <!-- 是否会员 -->
-      <!-- <el-form-item label="是否会员">
-        <el-select v-model="member" placeholder="请选择">
+      <el-form-item label="是否会员">
+        <el-select v-model="form.is_member" placeholder="请选择">
           <el-option v-for="item in memberOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
-      </el-form-item> -->
+      </el-form-item>
       <!-- 是否大众点评 -->
-      <!-- <el-form-item label="是否大众点评">
-        <el-select v-model="dianPing" placeholder="请选择">
-          <el-option v-for="item in dianPingOptions" :key="item.value" :label="item.label" :value="item.value" />
+      <el-form-item label="是否大众点评">
+        <el-select v-model="form.is_dianping" placeholder="请选择">
+          <el-option v-for="item in commentOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
-      </el-form-item> -->
+      </el-form-item>
       <!-- 租金 -->
-      <!-- <el-form-item label="租金">
-        <el-input v-model="form.rent" />
-      </el-form-item> -->
+      <el-form-item label="租金">
+        <el-input v-model="form.rent_money" />
+      </el-form-item>
       <!-- 押金 -->
-      <!-- <el-form-item label="押金">
-        <el-input v-model="form.cashPledge" />
-      </el-form-item> -->
+      <el-form-item label="押金">
+        <el-input v-model="form.deposit_money" />
+      </el-form-item>
       <!-- 租赁开始日期 -->
       <!-- 租赁截止日期 -->
       <!-- <el-form-item label="租赁开始日期" label-width="350px">
-        <el-date-pick v-model="leaseStart" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
+        <el-date-pick v-model="form.leaseStart" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
       </el-form-item> -->
       <!-- 查询按钮 -->
       <el-form-item>
@@ -110,15 +110,24 @@ export default {
       storeOptions: [],
       tableData: [],
       shopOptions: [],
+      memberOptions: [],
+      commentOptions: [],
       form: {
         category: '', //  品类
         model: '', // 款式
         size: '', // 大小
-        startdate: '', // 起始日期
-        expirydate: '', // 终止日期
         store: '', // 仓库
         shop: '', // 门店
-        name: ''
+        customer_name: '', // 姓名
+        customer_mobile: '', // 电话
+        customer_address: '', // 地址
+        pay_number: '', // 支付宝账号
+        alipay_id: '', // 支付流水号
+        rent_money: '', // 租金
+        deposit_money: '', // 押金
+        is_dianping: '', // 大众点评
+        is_member: '', // 会员
+        leaseStart: '' // 租聘日期
       }
     }
   },
@@ -127,10 +136,8 @@ export default {
     this.getModelList()
     this.getCategoryList()
     this.getSizeList()
-    this.getStartDate()
-    this.getExpiryDate()
-    // this.getTableData()
     this.getShopList()
+    this.getOrderList()
   },
   methods: {
     getStoreList: function() {
@@ -139,7 +146,7 @@ export default {
           'get_store_list': {}
         },
         'statics': {
-          'token': '11b0aeb52bde6af80e0158dced1ce870__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
@@ -167,7 +174,7 @@ export default {
           'get_category_list': {}
         },
         'statics': {
-          'token': '11b0aeb52bde6af80e0158dced1ce870__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
@@ -180,14 +187,8 @@ export default {
               value: cate.category_id,
               label: cate.category_name
             }
-            // console.log(newCate)
-            // if (this.form.category === undefined) {
-            //   this.form.cate.value = '1'
-            //   this.form.cate.label = '西服'
-            // }
             this.categoryOptions.push(newCate)
           }
-          // console.log(this.categoryOptions)
         })
         .catch(err => {
           console.log(err)
@@ -201,21 +202,14 @@ export default {
           }
         },
         'statics': {
-          'token': '11b0aeb52bde6af80e0158dced1ce870__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
         .then(response => {
           const modellist = response.data.get_model_list.data.list
-          // console.log(JSON.stringify(model))
-          // const modelOptions = {}
           for (var i = 0; i < modellist.length; i++) {
-            // 1. 拿到当前元素item
             const item = modellist[i]
-            // console.log(item)
-            // console.log(item.category_id)
-            // {"model_id":"153","category_id":"10","model_name":"白色","model_no":""}
-            // 2. 判断arr里面是否有item.category_id
             if (this.modelOptions[item.category_id] === undefined) {
               this.modelOptions[item.category_id] = []
             }
@@ -224,7 +218,6 @@ export default {
               label: item.model_name
             })
           }
-          // console.log(this.modelOptions)
         })
         .catch(err => {
           console.log(err)
@@ -238,7 +231,7 @@ export default {
           }
         },
         'statics': {
-          'token': '11b0aeb52bde6af80e0158dced1ce870__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data)).then(response => {
@@ -259,46 +252,18 @@ export default {
         console.log(err)
       })
     },
-    getStartDate: function() {
-      var now = new Date()
-      var year = now.getFullYear()
-      var month = now.getMonth() + 1
-      var day = now.getDate()
-      var clock = year + '-'
-      if (month < 10) clock += '0'
-      clock += month + '-'
-      if (day < 10) clock += '0'
-      clock += day
-      this.form.startdate = clock
-      console.log(this.form.startdate)
-    },
-    getExpiryDate: function() {
-      console.log(this.form.startdate)
-      var now = new Date()
-      var year = now.getFullYear()
-      var month = now.getMonth() + 1
-      var day = now.getDate()
-      var clock = year + '-'
-      if (month < 10) clock += '0'
-      clock += month + '-'
-      if (day < 10) clock += '0'
-      clock += day + 7
-      this.form.expirydate = clock
-      console.log(this.form.expirydate)
-    },
     getShopList: function() {
       const data = {
         'fun': {
           'get_shop_list': {}
         },
         'statics': {
-          'token': '11b0aeb52bde6af80e0158dced1ce870__3'
+          'token': '46ba71147221101a75095d249a8ab354__3'
         }
       }
       axios.post('/api/v1/', JSON.stringify(data))
         .then(response => {
           const shoplist = response.data.get_shop_list.data.list
-          console.log(shoplist)
           for (var i = 0; i < shoplist.length; i++) {
             const item = shoplist[i]
             const newItem = {
@@ -312,8 +277,39 @@ export default {
           console.log(err)
         })
     },
+    getOrderList: function() {
+      const data = {
+        'fun': {
+          'order_list': {
+            'customer_name': '付盼',
+            'customer_mobile': '13910516689',
+            'customer_address': '闪送',
+            'pay_number': '0008802',
+            'alipay_id': '',
+            'is_member': '2',
+            'is_dianping': '1',
+            'rent_money': '458',
+            'deposit_money': '1000',
+            'rent_start_date': '2019-12-24',
+            'rent_end_date': '2020-12-25',
+            'shop_id': '2',
+            'category_id': '1',
+            'model_id': '1',
+            'size_id': '1',
+            'page_num': 1
+          }
+        },
+        'statics': {
+          'token': '46ba71147221101a75095d249a8ab354__3'
+        }
+      }
+      axios.post('/api/v1/', JSON.stringify(data)).then(response => {
+        const orderList = response.data
+        console.log('orderList', orderList)
+      })
+    },
     onSubmit() {
-      alert('我点了，你呢')
+      this.getOrderList()
     }
   }
 }
